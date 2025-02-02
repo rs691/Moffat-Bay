@@ -3,8 +3,7 @@ from django.shortcuts import render
 
 
 
-def contact(request):
-    return render(request, 'Moffet_bay/contact.html')
+
 
 
 def projects(request):
@@ -14,4 +13,10 @@ def projects(request):
 
 def index(request):
     return render(request, 'Moffet_bay/index.html')
+
+def registration(request):
+    return render(request, 'Moffet_bay/registration.html')
+
+def login(request):
+    return render(request, 'Moffet_bay/login.html')
 
