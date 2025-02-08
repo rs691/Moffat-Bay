@@ -1,0 +1,11 @@
+.modal {
+    display: flex !important;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10% !important;
+}
+.modal-dialog {
+    margin: 0 auto;
+    max-width: 500px;
+    width: 90%;
+}

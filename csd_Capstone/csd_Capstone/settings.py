@@ -77,7 +77,7 @@ WSGI_APPLICATION = "csd_Capstone.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Use the MySQL backend
-        'NAME': 'moffat_bay',             # Name of your database
+        'NAME': 'updated_mof_bay',             # Name of your database
         'USER': 'root',                       # MySQL username
         'PASSWORD': 'Hankbob2017!',                       # MySQL password (leave blank if none)
         'HOST': 'localhost',                  # Database server (localhost for local dev)
@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Chicago"
 
 USE_I18N = True
 
@@ -121,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "csd_Capstone/static/Moffet_bay/"
+STATIC_URL = "Moffet_bay/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
@@ -130,3 +130,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+AUTH_USER_MODEL = 'Moffet_bay.CustomUser'
+
+# settings.py
+LOGOUT_REDIRECT_URL = 'index'

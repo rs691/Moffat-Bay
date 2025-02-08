@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Profile</h1>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+    <h2>Reservations</h2>
+    {% for reservation in user.reservation_set.all %}
+        <p>Room Type: {{ reservation.room_type }}</p>
+        <p>Check-in: {{ reservation.check_in }}</p>
+        <p>Check-out: {{ reservation.check_out }}</p>
+        <hr>
+    {% empty %}
+        <p>You have no past reservations.</p>
+    {% endfor %}
+
+    {% if user.reservation_set.all %}
+        <a href="{% url 'reservation' %}" class="btn btn-primary">Make a Reservation</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+
