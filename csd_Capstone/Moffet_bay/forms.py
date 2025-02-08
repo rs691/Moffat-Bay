@@ -11,12 +11,6 @@ from .models import CustomUser, Reservation, Testimonial # Use CustomUser instea
 
 User = get_user_model()
 
-# class SignUpForm(UserCreationForm):
-#     email = forms.EmailField(max_length=254, required=True, help_text='Required')
-
-#     class Meta:
-#         model = User
-#         fields = ('username', 'email', 'password1', 'password2')
 
 class SignInForm(AuthenticationForm):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))

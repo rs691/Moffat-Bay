@@ -12,7 +12,6 @@ urlpatterns = [
       path('success/', views.success, name='success'),
        path('reservation/', views.reservation, name='reservation'),
        path('about/', views.about, name='about'),
-    #    path('logout/', views.logout, name='logout'),
        path('profile/', views.profile, name='profile'),
        path('contact/', views.contact, name='contact'),
        path('reservation_summary/', views.reservation_summary, name='reservation_summary'),

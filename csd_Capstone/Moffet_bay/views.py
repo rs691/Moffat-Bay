@@ -10,35 +10,6 @@ from django.contrib.auth.decorators import login_required
 
 
 
-
-
-
-
-# def sign_in_up(request):
-#     if request.method == 'POST':
-#         if 'sign_up' in request.POST:
-#             sign_up_form = SignUpForm(request.POST)
-#             sign_in_form = SignInForm()
-#             if sign_up_form.is_valid():
-#                 user = sign_up_form.save()
-#                 login(request, user)
-#                 messages.success(request, 'Registration successful. You are now logged in.')
-#                 return redirect('index')  # Redirect to your desired page after sign-up
-#         elif 'signin' in request.POST:
-#             sign_in_form = SignInForm(data=request.POST)
-#             sign_up_form = SignUpForm()
-#             if sign_in_form.is_valid():
-#                 user = sign_in_form.get_user()
-#                 login(request, user)
-#                 messages.success(request, 'Login successful.')
-#                 return redirect('index')  # Redirect to your desired page after sign-in
-#     else:
-#         sign_up_form = SignUpForm()
-#         sign_in_form = SignInForm()
-
-#     return render(request, 'sign_in_up.html', {'sign_up_form': sign_up_form, 'sign_in_form': sign_in_form})
-
-
 def index(request):
     return render(request, 'index.html')
 
@@ -132,8 +103,7 @@ def profile(request):
 def contact(request):
     return render(request, 'contact.html')
 
-def reservation_summary(request):
-    return render(request, 'reservation_summary.html')
+
 
 
 
