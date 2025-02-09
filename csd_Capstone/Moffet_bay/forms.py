@@ -12,21 +12,57 @@ from .models import CustomUser, Reservation, Testimonial # Use CustomUser instea
 User = get_user_model()
 
 
-class SignInForm(AuthenticationForm):
-    username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, required=True, help_text='Required')
-    street = forms.CharField(max_length=255, required=False)
-    city = forms.CharField(max_length=100, required=False)
-    state = forms.CharField(max_length=100, required=False)
-    zip_code = forms.CharField(max_length=20, required=False)
+    
+    first_name = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    last_name = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    email = forms.EmailField(
+        max_length=254,
+        required=True,
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
+    street = forms.CharField(
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    city = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    state = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    zip_code = forms.CharField(
+        max_length=20,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'password1', 'password2', 'street', 'city', 'state', 'zip_code')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'street', 'city', 'state', 'zip_code')
 
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control'})
+
+      
+      
+      
 def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
@@ -38,7 +74,14 @@ def save(self, commit=True):
             user.save()
         return user
 
-
+class SignInForm(AuthenticationForm):
+    username = forms.CharField(
+        max_length=150,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )
 
 
 class ReservationForm(forms.ModelForm):
@@ -71,3 +114,25 @@ class TestimonialForm(forms.ModelForm):
         }
 
 
+from django import forms
+from .models import Reservation
+
+class ReservationForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = [
+            'first_name', 'last_name', 'street', 'city', 'state', 'zip',
+            'guests', 'room_type', 'check_in', 'check_out'
+        ]
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'street': forms.TextInput(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'state': forms.TextInput(attrs={'class': 'form-control'}),
+            'zip': forms.TextInput(attrs={'class': 'form-control'}),
+            'guests': forms.NumberInput(attrs={'class': 'form-control'}),
+            'room_type': forms.Select(attrs={'class': 'form-select'}),
+            'check_in': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'check_out': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }

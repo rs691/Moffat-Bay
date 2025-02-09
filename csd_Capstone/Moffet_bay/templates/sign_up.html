@@ -1,51 +1,87 @@
+
+
+
+
 {% extends 'base.html' %}
-{% block title %}Sign In{% endblock %}
-    
- 
+{% block title %}Sign Up{% endblock %}
+
 {% load static %}
+<link rel="stylesheet" href="{% static 'Moffet_bay/css/style.css' %}">
 
-{% block additional_styles %}<link rel="stylesheet" href="{% static 'Moffet_bay/css/style.css' %}">{% endblock %}
 {% block content %}
- 
-<body >
-
-    <!-- Modal -->
-    <div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-4 shadow">
-                <div class="modal-header border-bottom-0">
-                    <h2 class="modal-title fs-5" id="signupModalLabel">Sign Up</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<main>
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="modal modal-sheet position-static d-block" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header border-bottom-0"></div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Register</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="mb-3">
+                    <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                    {{ form.username }}
+                    {{ form.username.errors }}
                 </div>
-                <div class="modal-body">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                    <form method="post">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
-                            {{ form.username }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
-                            {{ form.email }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
-                            {{ form.password1 }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
-                            {{ form.password2 }}
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-                    </form>
+                <div class="mb-3">
+                    <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label>
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
+                    {{ form.password1 }}
+                    {{ form.password1.errors }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
+                    {{ form.password2 }}
+                    {{ form.password2.errors }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.street.id_for_label }}" class="form-label">Street</label>
+                    {{ form.street }}
+                    {{ form.street.errors }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.city.id_for_label }}" class="form-label">City</label>
+                    {{ form.city }}
+                    {{ form.city.errors }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.state.id_for_label }}" class="form-label">State</label>
+                    {{ form.state }}
+                    {{ form.state.errors }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.zip_code.id_for_label }}" class="form-label">Zip Code</label>
+                    {{ form.zip_code }}
+                    {{ form.zip_code.errors }}
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            </form>
         </div>
     </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</main>
 {% endblock %}
+
 

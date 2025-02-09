@@ -1,13 +1,16 @@
 
 {% load static %}
     
-    <link rel="stylesheet" href="{% static 'Moffet_bay/css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
-    {% block additional_styles %}{% endblock %}
+   
 
 {% block content %}
 
-<footer>
-    <p>&copy; 2025 Moffat Bay. CSD-Capstone</p>
-  </footer> 
+
+<footer class="footer">
+  <div class="footer-content">
+      <p>2025 Moffat Bay. CSD-Capstone</p>
+  </div>
+</footer>
 {% endblock %}

@@ -4,17 +4,17 @@
     
  
 {% load static %}
-
-{% block additional_styles %}<link rel="stylesheet" href="{% static 'Moffet_bay/css/main.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'Moffet_bay/css/style.css' %}">
 {% block content %}
-<body class="bg-body-secondary">
+<body class="bg-body">
     
     <!-- Modal -->
-    <div class="modal modal-sheet position-static d-block" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="modal modal-sheet position-static d-block" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content rounded-4 shadow">
                 <div class="modal-header border-bottom-0">
-                    <h2 class="modal-title fs-5" id="signupModalLabel">Sign In</h2>
+                    <h2 class="modal-title fs-5" id="signinModalLabel">Sign In</h2>
                 </div>
                 <div class="modal-body p-4">
                     {% if messages %}
@@ -38,7 +38,6 @@
             </div>
         </div>
     </div>
-
-  
+</div>
 </body>
 {% endblock %}

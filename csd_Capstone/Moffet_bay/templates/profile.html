@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid bg-body-secondary vh-100">
+    <div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title">Room Reservation</h5>
+                </div>
+                <div class="modal-body">
     <h1 class="text-center">Profile</h1>
     <p>Username: {{ user.username }}</p>
     <p>Email: {{ user.email }}</p>
@@ -19,6 +26,11 @@
         <a href="{% url 'reservation' %}" class="btn btn-primary">Make a Reservation</a>
     {% endif %}
 </div>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}
+
 
 
