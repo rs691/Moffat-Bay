@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Reservation Lookup</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+
+  {% if results %}
+    <h3>Search Results:</h3>
+    <ul>
+      {% for reservation in results %}
+        <li>
+          Reservation ID: {{ reservation.id }}<br>
+          Name: {{ reservation.first_name }} {{ reservation.last_name }}<br>
+          Email: {{ reservation.email }}<br>
+          Check-in: {{ reservation.check_in }}<br>
+          Check-out: {{ reservation.check_out }}
+        </li>
+      {% empty %}
+        <li>No reservations found.</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

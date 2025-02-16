@@ -11,11 +11,9 @@
       <nav class="py-2 bg-body-tertiary border-bottom">
         <div class="container d-flex flex-wrap">
           <ul class="nav me-auto">
+     
             <li class="nav-item">
               <a href="{% url 'index' %}" class="bi bi-house-door-fill nav-link link-body-emphasis px-2" title="Home"></a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'reservation' %}" class="nav-link link-body-emphasis px-2">Reservation</a>
             </li>
             <li class="nav-item">
               <a href="{% url 'about' %}" class="nav-link link-body-emphasis px-2">About</a>
@@ -29,6 +27,25 @@
             <li class="nav-item">
               <a href="{% url 'reservation_summary' %}" class="nav-link link-body-emphasis px-2">Reservation Summary</a>
             </li>
+          
+              <li class="nav-item">
+                <a href="{% url 'docs' %}" class="nav-link link-body-emphasis px-2">Docs</a>
+              </li>
+            
+              <li class="nav-item">
+                <a href="{% url 'reservation' %}" class="nav-link link-body-emphasis px-2">Reserve a Room</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'room_rates' %}" class="nav-link link-body-emphasis px-2">Rates</a>
+              </li>
+              
+             
+              <div class="d-flex gap-2 justify-content-center">
+                <span class="badge bg-info text-primary-emphasis rounded-pill">
+              <li class="nav-item">
+                <a href="{% url 'reservation_lookup' %}" class="nav-link link-body-emphasis px-2" title="reservation_Lookup">Check Your Reservations</a>
+              </li>
+            </span>
           </ul>
           <ul class="nav">
             {% if user.is_authenticated %}
@@ -48,6 +65,7 @@
               <li class="nav-item">
                 <a href="{% url 'sign_up' %}" class="nav-link link-body-emphasis px-2">Sign Up</a>
               </li>
+              
             {% endif %}
           </ul>
         </div>

@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.conf import settings
 
+from django.utils.text import slugify
+import markdown
+
 
 
 
@@ -68,7 +71,29 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
 
 
+# class Reservation(models.Model):
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+#     first_name = models.CharField(max_length=100)
+#     last_name = models.CharField(max_length=100)
+#     street = models.CharField(max_length=255)
+#     city = models.CharField(max_length=100)
+#     state = models.CharField(max_length=100)
+#     zip = models.CharField(max_length=20)
+#     guests = models.IntegerField()
+#     room_type = models.CharField(max_length=50, choices=[('single', 'Single'), ('double', 'Double'), ('suite', 'Suite')])
+#     check_in = models.DateField()
+#     check_out = models.DateField()
+#     reservation_date = models.DateField(null=True, blank=True)
+
+
+#     def __str__(self):
+#         return f"{self.first_name} {self.last_name} - {self.room_type}"
+
+
+    
 class Reservation(models.Model):
+    reservation_id = models.CharField(max_length=10, unique=True, editable=False)
+    email = models.EmailField(max_length=254)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -82,14 +107,27 @@ class Reservation(models.Model):
     check_out = models.DateField()
     reservation_date = models.DateField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.reservation_id:
+            self.reservation_id = self.generate_reservation_id()
+        super().save(*args, **kwargs)
+
+    def generate_reservation_id(self):
+        import random
+        import string
+        letters = ''.join(random.choices(string.ascii_uppercase, k=2))
+        numbers = ''.join(random.choices(string.digits, k=6))
+        reservation_id = f"{letters}{numbers}"
+        
+        while Reservation.objects.filter(reservation_id=reservation_id).exists():
+            letters = ''.join(random.choices(string.ascii_uppercase, k=2))
+            numbers = ''.join(random.choices(string.digits, k=6))
+            reservation_id = f"{letters}{numbers}"
+        
+        return reservation_id
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} - {self.room_type}"
-
-
-    
-    
-  
+        return f"{self.reservation_id} - {self.first_name} {self.last_name} - {self.room_type}"
 
 class Testimonial(models.Model):
     first_name = models.CharField(max_length=100)
@@ -99,3 +137,24 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return f"{self.first_name} - {self.message[:50]}"
+
+class Documentation(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    slug = models.SlugField(unique=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def get_html_content(self):
+        return markdown.markdown(
+            self.content,
+            extensions=['extra', 'codehilite', 'fenced_code']
+        )
+
+    def __str__(self):
+        return self.title

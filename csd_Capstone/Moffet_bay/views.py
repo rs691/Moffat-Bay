@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import SignUpForm, SignInForm, ReservationForm, TestimonialForm
+from .forms import SignUpForm, SignInForm, ReservationForm, TestimonialForm, ReservationLookupForm
 from .models import CustomUser, Reservation, Testimonial
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from datetime import date
 
 
 
@@ -138,3 +140,79 @@ def create_reservation(request):
         form = ReservationForm()
     return render(request, 'create_reservation.html', {'form': form})
 
+def docs_view(request):
+    return render(request, 'docs.html')
+
+
+# @login_required
+# def reservation_lookup(request):
+#     if request.method == 'POST':
+#         id = request.POST.get('id')
+#         reservation = Reservation.objects.filter(id=id).first()
+#         return render(request, 'reservation_lookup.html', {'reservation': reservation})
+#     else:
+#         return render(request, 'reservation_lookup.html')
+
+
+@login_required
+def reservation_history(request):
+    today = date.today()
+    return render(request, 'reservations/history.html', {'today': today})
+
+@login_required
+def past_reservations(request):
+    today = date.today()
+    reservations = Reservation.objects.filter(
+        user=request.user,
+        check_out__lt=today
+    ).order_by('-check_out')
+    
+    return render(request, 'reservations/past_reservations.html', {
+        'reservations': reservations
+    })
+
+@login_required
+def future_reservations(request):
+    today = date.today()
+    reservations = Reservation.objects.filter(
+        user=request.user,
+        check_in__gte=today
+    ).order_by('check_in')
+    
+    return render(request, 'reservations/future_reservations.html', {
+        'reservations': reservations
+    })
+    
+    
+
+
+
+
+def reservation_lookup(request):
+    results = None
+    if request.method == 'POST':
+        form = ReservationLookupForm(request.POST)
+        if form.is_valid():
+            reservation_id = form.cleaned_data.get('reservation_id')
+            last_name = form.cleaned_data.get('last_name')
+            email = form.cleaned_data.get('email')
+            results = Reservation.objects.all()
+            if reservation_id:
+                results = results.filter(reservation_id=reservation_id)
+            if last_name:
+                results = results.filter(last_name__icontains=last_name)
+            if email:
+                results = results.filter(email__iexact=email)
+    else:
+        form = ReservationLookupForm()
+    return render(request, 'reservation_lookup.html', {'form': form, 'results': results})
+
+
+def register(request):
+    return render(request, 'register.html')
+
+def check_user(request):
+    return render(request, 'check_user.html')
+
+def room_rates(request):
+    return render(request, 'room_rates.html')

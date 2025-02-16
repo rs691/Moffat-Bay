@@ -1,117 +1,148 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
 
-{% block title %}Home{% endblock %}
-
-{% block content %}
-    <!-- Hero Section -->
-    <div class="container-fluid bg-light py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h1 class="display-4 fw-bold">Moffat Bay Resort</h1>
-                    <p class="lead">An oasis of love and money baby. All you have to do, is nothing. </p>
-                    <p class="lead">We have the best rooms, the best food, and the best service. Register now for the best deals!  </p>
-                    <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg">Register</a>
-                </div>
-                {% load static %}
-                <div class="col-md-6">
-                  <img src="{% static '/images/resort1.jpg' %}" class="img-fluid" alt="Hero">
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class="b-example-divider"></div>
-<!--  
-    <div class="card text-bg-dark">
-      <img src="{% static '/images/resort2.jpg' %}" class="card-img" alt="...">
-      <div class="card-img-overlay">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small>Last updated 3 mins ago</small></p>
+{% block content%}
+{% load static %}
+<!-- Hero Section -->
+<div class="container-fluid bg-light py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h1 class="display-4 fw-bold">Moffat Bay Resort</h1>
+        <p class="lead">
+          An oasis of love and money baby. All you have to do, is nothing.
+        </p>
+        <p class="lead">
+          We have the best rooms, the best food, and the best service. Register
+          now for the best deals!
+        </p>
+        <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg"
+          >Register</a
+        >
       </div>
-    </div> -->
-
+      {% load static %}
+      <div class="col-md-6">
+        <img
+          src="{% static '/images/resort1.jpg' %}"
+          class="img-fluid"
+          alt="Hero"
+        />
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="b-example-divider"></div>
 
-  <div class="container px-4 py-5" id="custom-cards">
-    <h2 class="pb-2 border-bottom">What's going on</h2>
 
-    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-      <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Get Rewards and Exclusive Offers</h3>
-            <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto">
-                <img src="{% static 'Moffet_bay/images/resort2.jpg' %}" alt="resort2" width="32" height="32" class="rounded-circle border border-white">
-              </li>
-              <li class="d-flex align-items-center me-3">
-                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                <small>Earth</small>
-              </li>
-              <li class="d-flex align-items-center">
-                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
-                <small>3d</small>
-              </li>
-            </ul>
-          </div>
+
+
+<div class="container px-4 py-5" id="custom-cards">
+  <h2 class="pb-2 border-bottom">Moffat Bay Restaurant</h2>
+
+  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+    <div class="col">
+      <div
+        class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+      >
+        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+            Get Rewards and Exclusive Offers
+          </h3>
+          <ul class="d-flex list-unstyled mt-auto">
+            <li class="me-auto">
+              <img
+                src="{% static '/images/check-in.jpg' %}"
+                alt="resort2"
+                width="32"
+                height="32"
+                class="rounded-circle border border-white"
+              />
+            </li>
+          </ul>
         </div>
       </div>
+    </div>
+
+    <div class="col">
+      <div
+        class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+        style="background-image: url('/images/spa.jpg')"
+      >
+        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+            Build points for future trips
+          </h3>
+          <ul class="d-flex list-unstyled mt-auto">
+            <li class="me-auto">
+              <img
+                src="{% static '/images/resort2.jpg' %}"
+                alt="resort"
+                width="32"
+                height="32"
+                class="rounded-circle border border-white"
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+      >
+        <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+            Come see what you're missing
+          </h3>
+          <ul class="d-flex list-unstyled mt-auto">
+            <li class="me-auto">
+              <img
+                src="{% static '/images/pool.jpg' %}"
+                alt="spaIcon"
+                width="32"
+                height="32"
+                class="rounded-circle border border-white"
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="b-example-divider"></div>
+    <!--Add a hero for more space on the bottom-->
+  </div>
+
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img
+          src="{% static '/images/fishWhiteBack.png' %}"
+          class="d-block mx-lg-auto img-fluid"
+          alt="fish"
+          width="700"
+          height="500"
      
-      <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('/images/spa.jpg');">
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Much longer title that wraps to multiple lines</h3>
-            <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto">
-                <img src="{% static 'Moffet_bay/images/spa.jpg' %}" alt="resort" width="32" height="32" class="rounded-circle border border-white">
-              </li>
-             
-           
-            </ul>
-          </div>
-        </div>
+        />
       </div>
-      <div class="col">
-        
-        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-            <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Come see what you're missing</h3>
-            <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto">
-                <img src="{% static 'Moffet_bay/images/pool.jpg' %}" alt="spaIcon" width="32" height="32" class="rounded-circle border border-white">
-              </li>
-              <li class="d-flex align-items-center me-3">
-                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                <small>California</small>
-              </li>
-              <li class="d-flex align-items-center">
-                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
-                <small>5d</small>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="b-example-divider"></div>
-
-
-     
-{% endblock %}
-
-
-
-
-
-
-
-    
-  </body>
-</html>
-
-
-
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-2">
+         Somethings Fishy
+        </h1>
+        <p>
+          With the addition of our new seafood restaurant, we are now offering a
+          variety of seafood options. From lobster to shrimp, we have it all.
+        </p>
   
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg"
+          >Reservations</a
+          
+   
+      </div>
+    </div>
+  </div>
+
+  <div class="b-example-divider"></div>
+
+  {% endblock %}
+</div>

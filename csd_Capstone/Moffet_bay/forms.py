@@ -4,6 +4,9 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.core.validators import MaxValueValidator
 from .models import CustomUser, Reservation, Testimonial # Use CustomUser instead of default User
+from django import forms
+
+
 
 
 
@@ -114,8 +117,7 @@ class TestimonialForm(forms.ModelForm):
         }
 
 
-from django import forms
-from .models import Reservation
+
 
 class ReservationForm(forms.ModelForm):
     class Meta:
@@ -136,3 +138,12 @@ class ReservationForm(forms.ModelForm):
             'check_in': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'check_out': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
+        
+class ReservationLookupForm(forms.Form):
+    reservation_id = forms.CharField(label='Reservation ID', required=False)
+    last_name = forms.CharField(label='Last Name', required=False)
+    email = forms.EmailField(label='Email', required=False)
+    
+def clean(self):
+    super().clean()
+    
