@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import SignUpForm, SignInForm, ReservationForm, TestimonialForm, ReservationLookupForm
+from .forms import SignUpForm, SignInForm, ReservationForm, TestimonialForm, ReservationLookupForm, ContactMessageForm
 from .models import CustomUser, Reservation, Testimonial
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import date
+from django.db.models import Q
+from django.http import JsonResponse
+import json
+
+from django.http import HttpResponse
 
 
 
@@ -188,24 +193,24 @@ def future_reservations(request):
 
 
 
-def reservation_lookup(request):
-    results = None
-    if request.method == 'POST':
-        form = ReservationLookupForm(request.POST)
-        if form.is_valid():
-            reservation_id = form.cleaned_data.get('reservation_id')
-            last_name = form.cleaned_data.get('last_name')
-            email = form.cleaned_data.get('email')
-            results = Reservation.objects.all()
-            if reservation_id:
-                results = results.filter(reservation_id=reservation_id)
-            if last_name:
-                results = results.filter(last_name__icontains=last_name)
-            if email:
-                results = results.filter(email__iexact=email)
-    else:
-        form = ReservationLookupForm()
-    return render(request, 'reservation_lookup.html', {'form': form, 'results': results})
+# def reservation_lookup(request):
+#     results = None
+#     if request.method == 'POST':
+#         form = ReservationLookupForm(request.POST)
+#         if form.is_valid():
+#             reservation_id = form.cleaned_data.get('reservation_id')
+#             last_name = form.cleaned_data.get('last_name')
+#             email = form.cleaned_data.get('email')
+#             results = Reservation.objects.all()
+#             if reservation_id:
+#                 results = results.filter(reservation_id=reservation_id)
+#             if last_name:
+#                 results = results.filter(last_name__icontains=last_name)
+#             if email:
+#                 results = results.filter(email__iexact=email)
+#     else:
+#         form = ReservationLookupForm()
+#     return render(request, 'reservation_lookup.html', {'form': form, 'results': results})
 
 
 def register(request):
@@ -216,3 +221,85 @@ def check_user(request):
 
 def room_rates(request):
     return render(request, 'room_rates.html')
+
+
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactMessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            #  success message using Django's messages framework.
+            messages.success(request, 'Message sent successfully.')
+            return redirect('contact')  # Redirect back to the contact page or to a thank-you page.
+    else:
+        form = ContactMessageForm()
+    
+    return render(request, 'contact.html', {'form': form})
+
+
+def reservation_lookup(request):
+    form = ReservationLookupForm(request.POST or None)
+    results = None
+    if request.method == 'POST' and form.is_valid():
+        reservation_id = form.cleaned_data.get('reservation_id')
+        last_name = form.cleaned_data.get('last_name')
+        email = form.cleaned_data.get('email')
+        
+        query = Q()
+        if reservation_id:
+            query &= Q(reservation_id__icontains=reservation_id)
+        if last_name:
+            query &= Q(last_name__icontains=last_name)
+        if email:
+            query &= Q(email__icontains=email)
+            
+        results = Reservation.objects.filter(query)
+    
+    # Check for the HTMX header
+    is_htmx = request.headers.get('HX-Request', False) or request.META.get('HTTP_HX_REQUEST', False)
+    
+    if is_htmx:
+        return render(request, 'reservation_lookup_results.html', {'results': results})
+    
+    return render(request, 'reservation_lookup.html', {'form': form, 'results': results})
+
+
+
+
+def reservation_lookup(request):
+    print("View called")
+    print("Headers:", request.headers)  # Debug headers
+    print("Is HTMX:", request.htmx)    # Debug HTMX status
+    
+    form = ReservationLookupForm(request.POST or None)
+    results = None
+    
+    if request.method == 'POST' and form.is_valid():
+        print("Form data:", form.cleaned_data)  # Debug form data
+        
+        reservation_id = form.cleaned_data.get('reservation_id')
+        last_name = form.cleaned_data.get('last_name')
+        email = form.cleaned_data.get('email')
+        
+        query = Q()
+        if reservation_id:
+            query &= Q(reservation_id__icontains=reservation_id)
+        if last_name:
+            query &= Q(last_name__icontains=last_name)
+        if email:
+            query &= Q(email__icontains=email)
+        
+        if not any([reservation_id, last_name, email]):
+            results = Reservation.objects.none()
+        else:
+            results = Reservation.objects.filter(query)
+            print("Query:", str(results.query))  # Debug query
+            print("Results count:", results.count())  # Debug results
+    
+    context = {'form': form, 'results': results}
+    
+    if request.htmx:
+        return render(request, 'reservation_lookup_results.html', context)
+    return render(request, 'reservation_lookup.html', context)

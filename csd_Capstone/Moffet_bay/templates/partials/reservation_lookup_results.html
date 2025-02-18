@@ -1,0 +1,10 @@
+<!-- partials/reservation_lookup_results.html -->
+{% if results %}
+    <ul>
+        {% for reservation in results %}
+            <li>{{ reservation }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No matching reservations found.</p>
+{% endif %}

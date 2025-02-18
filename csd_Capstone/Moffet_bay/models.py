@@ -71,23 +71,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
 
 
-# class Reservation(models.Model):
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
-#     first_name = models.CharField(max_length=100)
-#     last_name = models.CharField(max_length=100)
-#     street = models.CharField(max_length=255)
-#     city = models.CharField(max_length=100)
-#     state = models.CharField(max_length=100)
-#     zip = models.CharField(max_length=20)
-#     guests = models.IntegerField()
-#     room_type = models.CharField(max_length=50, choices=[('single', 'Single'), ('double', 'Double'), ('suite', 'Suite')])
-#     check_in = models.DateField()
-#     check_out = models.DateField()
-#     reservation_date = models.DateField(null=True, blank=True)
 
-
-#     def __str__(self):
-#         return f"{self.first_name} {self.last_name} - {self.room_type}"
 
 
     
@@ -158,3 +142,14 @@ class Documentation(models.Model):
 
     def __str__(self):
         return self.title
+    
+  
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message from {self.name} ({self.email})"

@@ -23,20 +23,18 @@ body {
     border-top-right-radius: 0;
   }
 
-footer {
+/* footer {
 position: fixed;
 bottom: 0;
 background-color: black;
 width: 100%;
 font-size: 20px;
 color: white;
-padding: 20px;
+margin: 0;
 text-align: center;
-}
+padding: 20px;
+} */
 
 p{
   text-align: center;
 }
-
-
-

@@ -1,0 +1,66 @@
+<!-- reservation_lookup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Lookup</title>
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Reservation Lookup</h2>
+        
+        <!-- Debug info -->
+        <div class="mb-3">
+            <small>HTMX Status: <span id="htmx-status">Checking...</span></small>
+        </div>
+        
+        <form hx-post="{% url 'reservation_lookup' %}"
+              hx-trigger="change delay:500ms, keyup delay:500ms"
+              hx-target="#results"
+              hx-indicator="#spinner">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.reservation_id.label_tag }}
+                {{ form.reservation_id }}
+            </div>
+            <div class="mb-3">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
+            </div>
+            <div class="mb-3">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+        </form>
+        
+        <!-- Loading indicator -->
+        <div id="spinner" class="htmx-indicator">
+            Searching...
+        </div>
+        
+        <div id="results">
+            {% include 'reservation_lookup_results.html' %}
+        </div>
+    </div>
+
+    <script>
+        // Debug HTMX loading
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('htmx-status').textContent = 
+                typeof htmx !== 'undefined' ? 'Loaded' : 'Not loaded';
+        });
+        
+        // Debug HTMX requests
+        document.body.addEventListener('htmx:beforeRequest', function(evt) {
+            console.log('HTMX request starting:', evt.detail);
+        });
+        
+        document.body.addEventListener('htmx:afterRequest', function(evt) {
+            console.log('HTMX request completed:', evt.detail);
+        });
+    </script>
+</body>
+</html>

@@ -1,27 +1,45 @@
+
 {% extends 'base.html' %}
+{% block title %}Sign Up{% endblock %}
+
+
 
 {% block content %}
-  <h2>Reservation Lookup</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Search</button>
-  </form>
+<body>
+    <div class="container mt-5">
+        <h2>Reservation Lookup</h2>
+        
+   
+        
+        <form hx-post="{% url 'reservation_lookup' %}"
+              hx-trigger="change delay:400ms, keyup delay:400ms"
+              hx-target="#results"
+              hx-indicator="#spinner">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.reservation_id.label_tag }}
+                {{ form.reservation_id }}
+            </div>
+            <div class="mb-3">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
+            </div>
+            <div class="mb-3">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+        </form>
+        
+        <!-- Loading indicator -->
+        <div id="spinner" class="htmx-indicator">
+            Searching...
+        </div>
+     
+        <div id="results">
+            {% include 'reservation_lookup_results.html' %}
+        </div>
+    </div>
 
-  {% if results %}
-    <h3>Search Results:</h3>
-    <ul>
-      {% for reservation in results %}
-        <li>
-          Reservation ID: {{ reservation.id }}<br>
-          Name: {{ reservation.first_name }} {{ reservation.last_name }}<br>
-          Email: {{ reservation.email }}<br>
-          Check-in: {{ reservation.check_in }}<br>
-          Check-out: {{ reservation.check_out }}
-        </li>
-      {% empty %}
-        <li>No reservations found.</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+ 
+</body>
 {% endblock %}

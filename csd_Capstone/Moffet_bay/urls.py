@@ -28,6 +28,8 @@ urlpatterns = [
     path('future-reservations/', views.future_reservations, name='future_reservations'),
     path('create-reservation/', views.create_reservation, name='create_reservation'),
    path('room_rates/', views.room_rates, name='room_rates'),
+    path('reservation-lookup/', views.reservation_lookup, name='reservation_lookup'),
+    
    
        
       

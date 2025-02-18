@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django import forms
 from django.core.validators import MaxValueValidator
-from .models import CustomUser, Reservation, Testimonial # Use CustomUser instead of default User
+from .models import CustomUser, Reservation, Testimonial, ContactMessage # Use CustomUser instead of default User
 from django import forms
 
 
@@ -87,23 +87,7 @@ class SignInForm(AuthenticationForm):
     )
 
 
-class ReservationForm(forms.ModelForm):
-    guests = forms.IntegerField(
-    widget=forms.NumberInput(attrs={'class': 'form-control'}),
-    validators=[MaxValueValidator(5)]
-    )
-    
-    class Meta:
-        model = Reservation
-        fields = [
-            'first_name', 'last_name', 'street', 'city', 'state', 'zip',
-            'guests', 'room_type', 'check_in', 'check_out'
-        ]
-        widgets = {
-            'check_in': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'check_out': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'room_type': forms.Select(attrs={'class': 'form-select'}),
-        }
+
 
 
 class TestimonialForm(forms.ModelForm):
@@ -139,11 +123,64 @@ class ReservationForm(forms.ModelForm):
             'check_out': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
         
+
+    
+
+class ContactMessageForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'message']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your Name'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'name@example.com'
+            }),
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Your Message',
+                'rows': 4
+            }),
+        }
+
+
+
+# class ReservationLookupForm(forms.Form):
+#     reservation_id = forms.CharField(
+#         label='Reservation ID',
+#         required=False,
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Reservation ID'})
+#     )
+#     last_name = forms.CharField(
+#         label='Last Name',
+#         required=False,
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Last Name'})
+#     )
+#     email = forms.EmailField(
+#         label='Email',
+#         required=False,
+#         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter Email'})
+#     )
+    
+
+    
+    
 class ReservationLookupForm(forms.Form):
-    reservation_id = forms.CharField(label='Reservation ID', required=False)
-    last_name = forms.CharField(label='Last Name', required=False)
-    email = forms.EmailField(label='Email', required=False)
-    
-def clean(self):
-    super().clean()
-    
+    reservation_id = forms.CharField(
+        label='Reservation ID',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    last_name = forms.CharField(
+        label='Last Name',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    email = forms.EmailField(
+        label='Email',
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )

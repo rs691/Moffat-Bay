@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
    "Moffet_bay",
+   "django_htmx",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",  # Add this line
 ]
 
 ROOT_URLCONF = "csd_Capstone.urls"
@@ -77,10 +79,10 @@ WSGI_APPLICATION = "csd_Capstone.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Use the MySQL backend
-        'NAME': 'updated_mof_bay',             # Name of your database
+        'NAME': 'moffat_bay_holy_db',             # Name of your database
         'USER': 'root',                       # MySQL username
         'PASSWORD': 'Hankbob2017!',                       # MySQL password (leave blank if none)
-        'HOST': 'localhost',                  # Database server (localhost for local dev)
+        'HOST': '127.0.0.1',                  # Database server (localhost for local dev)
         'PORT': '3306',                       # Default MySQL port
     }
 }
@@ -121,10 +123,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "csd_Capstone/static/Moffet_bay/"
+# STATIC_URL = "static/Moffet_bay/"
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
+
+
+
+STATIC_URL = "/static/"  # Change this to be simpler
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "Moffet_bay/static",  # Make sure this matches your actual static folder structure
 ]
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Add this line
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -136,3 +148,5 @@ AUTH_USER_MODEL = 'Moffet_bay.CustomUser'
 
 # settings.py
 LOGOUT_REDIRECT_URL = 'index'
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
