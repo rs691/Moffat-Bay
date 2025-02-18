@@ -68,16 +68,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.is_admin
 
 
-    
-
-
-
-
-
-    
+  
 class Reservation(models.Model):
     reservation_id = models.CharField(max_length=10, unique=True, editable=False)
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254, blank=False, null=False)  
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -111,7 +105,7 @@ class Reservation(models.Model):
         return reservation_id
 
     def __str__(self):
-        return f"{self.reservation_id} - {self.first_name} {self.last_name} - {self.room_type}"
+        return f"{self.reservation_id} - {self.first_name} {self.last_name} - {self.room_type} - {self.check_in} to {self.check_out} - {self.email}"
 
 class Testimonial(models.Model):
     first_name = models.CharField(max_length=100)
@@ -122,26 +116,7 @@ class Testimonial(models.Model):
     def __str__(self):
         return f"{self.first_name} - {self.message[:50]}"
 
-class Documentation(models.Model):
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    slug = models.SlugField(unique=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
-
-    def get_html_content(self):
-        return markdown.markdown(
-            self.content,
-            extensions=['extra', 'codehilite', 'fenced_code']
-        )
-
-    def __str__(self):
-        return self.title
     
   
 

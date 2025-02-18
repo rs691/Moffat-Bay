@@ -107,12 +107,13 @@ class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = [
-            'first_name', 'last_name', 'street', 'city', 'state', 'zip',
+            'first_name', 'last_name', 'email', 'street', 'city', 'state', 'zip',
             'guests', 'room_type', 'check_in', 'check_out'
         ]
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'street': forms.TextInput(attrs={'class': 'form-control'}),
             'city': forms.TextInput(attrs={'class': 'form-control'}),
             'state': forms.TextInput(attrs={'class': 'form-control'}),
@@ -166,21 +167,30 @@ class ContactMessageForm(forms.ModelForm):
 #     )
     
 
-    
+
     
 class ReservationLookupForm(forms.Form):
     reservation_id = forms.CharField(
         label='Reservation ID',
         required=False,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Reservation ID'
+        })
     )
     last_name = forms.CharField(
         label='Last Name',
         required=False,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Last Name'
+        })
     )
     email = forms.EmailField(
         label='Email',
         required=False,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter Email'
+        })
     )

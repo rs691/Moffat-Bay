@@ -149,15 +149,6 @@ def docs_view(request):
     return render(request, 'docs.html')
 
 
-# @login_required
-# def reservation_lookup(request):
-#     if request.method == 'POST':
-#         id = request.POST.get('id')
-#         reservation = Reservation.objects.filter(id=id).first()
-#         return render(request, 'reservation_lookup.html', {'reservation': reservation})
-#     else:
-#         return render(request, 'reservation_lookup.html')
-
 
 @login_required
 def reservation_history(request):
@@ -188,29 +179,7 @@ def future_reservations(request):
         'reservations': reservations
     })
     
-    
 
-
-
-
-# def reservation_lookup(request):
-#     results = None
-#     if request.method == 'POST':
-#         form = ReservationLookupForm(request.POST)
-#         if form.is_valid():
-#             reservation_id = form.cleaned_data.get('reservation_id')
-#             last_name = form.cleaned_data.get('last_name')
-#             email = form.cleaned_data.get('email')
-#             results = Reservation.objects.all()
-#             if reservation_id:
-#                 results = results.filter(reservation_id=reservation_id)
-#             if last_name:
-#                 results = results.filter(last_name__icontains=last_name)
-#             if email:
-#                 results = results.filter(email__iexact=email)
-#     else:
-#         form = ReservationLookupForm()
-#     return render(request, 'reservation_lookup.html', {'form': form, 'results': results})
 
 
 def register(request):
@@ -239,31 +208,31 @@ def contact(request):
     return render(request, 'contact.html', {'form': form})
 
 
-def reservation_lookup(request):
-    form = ReservationLookupForm(request.POST or None)
-    results = None
-    if request.method == 'POST' and form.is_valid():
-        reservation_id = form.cleaned_data.get('reservation_id')
-        last_name = form.cleaned_data.get('last_name')
-        email = form.cleaned_data.get('email')
+# def reservation_lookup(request):
+#     form = ReservationLookupForm(request.POST or None)
+#     results = None
+#     if request.method == 'POST' and form.is_valid():
+#         reservation_id = form.cleaned_data.get('reservation_id')
+#         last_name = form.cleaned_data.get('last_name')
+#         email = form.cleaned_data.get('email')
         
-        query = Q()
-        if reservation_id:
-            query &= Q(reservation_id__icontains=reservation_id)
-        if last_name:
-            query &= Q(last_name__icontains=last_name)
-        if email:
-            query &= Q(email__icontains=email)
+#         query = Q()
+#         if reservation_id:
+#             query &= Q(reservation_id__icontains=reservation_id)
+#         if last_name:
+#             query &= Q(last_name__icontains=last_name)
+#         if email:
+#             query &= Q(email__icontains=email)
             
-        results = Reservation.objects.filter(query)
+#         results = Reservation.objects.filter(query)
     
-    # Check for the HTMX header
-    is_htmx = request.headers.get('HX-Request', False) or request.META.get('HTTP_HX_REQUEST', False)
+#     # Check for the HTMX header
+#     is_htmx = request.headers.get('HX-Request', False) or request.META.get('HTTP_HX_REQUEST', False)
     
-    if is_htmx:
-        return render(request, 'reservation_lookup_results.html', {'results': results})
+#     if is_htmx:
+#         return render(request, 'reservation_lookup_results.html', {'results': results})
     
-    return render(request, 'reservation_lookup.html', {'form': form, 'results': results})
+#     return render(request, 'reservation_lookup.html', {'form': form, 'results': results})
 
 
 
@@ -303,3 +272,6 @@ def reservation_lookup(request):
     if request.htmx:
         return render(request, 'reservation_lookup_results.html', context)
     return render(request, 'reservation_lookup.html', context)
+
+def reservation_lookup_results(request):
+    return render(request, 'reservation_lookup_results.html')
