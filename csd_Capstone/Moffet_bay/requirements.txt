@@ -1,0 +1,5 @@
+# requirements.txt
+Django>=5.1.2
+django-htmx>=1.9.5
+mysqlclient>=2.2.0  # For MySQL support
+python-dotenv>=1.0.0  # For environment variables
