@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Moffat Bay Attractions</h1>
+    <div class="row">
+        {% for attraction in attractions %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ attraction.image_url }}" class="card-img-top attraction-img" alt="{{ attraction.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ attraction.title }}</h5>
+                    <p class="card-text">{{ attraction.description }}</p>
+                    <p class="card-text"><strong>Price:</strong> {{ attraction.price }}</p>
+                    <p class="card-text"><strong>Duration:</strong> {{ attraction.duration }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

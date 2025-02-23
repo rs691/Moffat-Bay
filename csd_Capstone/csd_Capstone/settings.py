@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-   "Moffet_bay",
-   "django_htmx",
+    "Moffet_bay",
+    "django_htmx",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -79,9 +79,9 @@ WSGI_APPLICATION = "csd_Capstone.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Use the MySQL backend
-        'NAME': 'moffat_bay',             # Name of your database
+        'NAME': 'moffat_bay',                 # Name of your database
         'USER': 'root',                       # MySQL username
-        'PASSWORD': 'Hankbob2017!',                       # MySQL password (leave blank if none)
+        'PASSWORD': 'Jayden#811',             # MySQL password (leave blank if none)
         'HOST': '127.0.0.1',                  # Database server (localhost for local dev)
         'PORT': '3306',                       # Default MySQL port
     }

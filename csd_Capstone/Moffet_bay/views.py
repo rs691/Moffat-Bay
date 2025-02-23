@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import SignUpForm, SignInForm, ReservationForm, TestimonialForm, ReservationLookupForm, ContactMessageForm
-from .models import CustomUser, Reservation, Testimonial
+from .models import CustomUser, Reservation, Testimonial, Attractions 
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -13,8 +13,53 @@ import json
 
 from django.http import HttpResponse
 
+def attractions(request):
+    attractions = [
+        {
+            'title': 'Diving',
+            'description': 'Dive into the underwater world and explore vibrant marine life with our certified diving instructors.',
+            'price': '$120 per person',
+            'duration': '4 hours',
+            'image_url': 'https://images.unsplash.com/photo-1561983779-7d7e065befa4?q=80&w=1589&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'   
+        },
+                {
+            'title': 'Hiking',
+            'description': 'Discover scenic trails and enjoy the great outdoors with our guided hiking tours.',
+            'price': '$30 per person',
+            'duration': '4 hours',
+            'image_url': 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0'
+        },
+        {
+            'title': 'Boating',
+            'description': 'Relax on the water with our boating excursions, perfect for families and groups.',
+            'price': '$60 per person',
+            'duration': '2 hours',
+            'image_url': 'https://images.unsplash.com/photo-1559075471-b8a6c70b56c2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGJvYXRpbmd8ZW58MHx8MHx8fDI%3D'
+        },
+        {
+            'title': 'Paddle Boarding',
+            'description': 'Explore peaceful waters and improve your balance with our paddle boarding adventures.',
+            'price': '$45 per person',
+            'duration': '2 hours',
+            'image_url': 'https://images.unsplash.com/photo-1472745942893-4b9f730c7668'
+        },
 
-
+        {
+            'title': 'Whale Watching',
+            'description': 'Experience the majesty of marine life up close with our guided whale watching tours.',
+            'price': '$99 per person',
+            'duration': '3 hours',
+            'image_url': 'https://images.unsplash.com/photo-1568430462989-44163eb1752f'
+        },
+        {
+            'title': 'Spa Day',
+            'description': 'Unwind with a relaxing massage, facial, and access to the resort’s wellness facilities.',
+    	    'price': '$150 per person',
+    	    'duration': '3 hours',
+    	    'image_url': 'https://images.unsplash.com/photo-1630893174210-eea582de3c74?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        }        
+    ]
+    return render(request, 'attractions.html', {'attractions': attractions})
 
 
 def index(request):
@@ -86,6 +131,12 @@ def reservation(request):
         form = ReservationForm(initial=initial_data)  # Pre-fill form
 
     return render(request, 'reservation.html', {'form': form})
+
+
+
+def attractions_view(request):
+    attractions = Attraction.objects.all()
+    return render(request, 'attractions.html', {'attractions': attractions})
 
 
 
