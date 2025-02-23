@@ -5,10 +5,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation Lookup</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/csd_Capstone/Moffet_bay/css/style.css' %}">
     <script src="https://unpkg.com/htmx.org@1.9.5"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
+    <div class="container-fluid">
+        <nav class="py-2 bg-body-tertiary border-bottom">
+          <div class="container d-flex flex-wrap">
+            <ul class="nav me-auto">
+       
+              <li class="nav-item">
+                <a href="{% url 'index' %}" class="bi bi-house-door-fill nav-link link-body-emphasis px-2" title="Home"></a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'about' %}" class="nav-link link-body-emphasis px-2">About</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'profile' %}" class="nav-link link-body-emphasis px-2">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'contact' %}" class="nav-link link-body-emphasis px-2">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'reservation_summary' %}" class="nav-link link-body-emphasis px-2">Reservation Summary</a>
+              </li>
+            
+                <li class="nav-item">
+                  <a href="{% url 'docs' %}" class="nav-link link-body-emphasis px-2">Docs</a>
+                </li>
+              
+                <li class="nav-item">
+                  <a href="{% url 'reservation' %}" class="nav-link link-body-emphasis px-2">Reserve a Room</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'room_rates' %}" class="nav-link link-body-emphasis px-2">Rates</a>
+                </li>
+                
+               
+                <div class="d-flex gap-2 justify-content-center">
+                  <span class="badge bg-info text-primary-emphasis rounded-pill">
+                <li class="nav-item">
+                  <a href="{% url 'reservation_lookup' %}" class="nav-link link-body-emphasis px-2" title="reservation_Lookup">Check Your Reservations</a>
+                </li>
+              </span>
+            </ul>
+            <ul class="nav">
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <span class="nav-link">Welcome, {{ user.username }}</span>
+                </li>
+                <li class="nav-item">
+                  <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link nav-link">Logout</button>
+                  </form>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a href="{% url 'sign_in' %}" class="nav-link link-body-emphasis px-2">Sign In</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'sign_up' %}" class="nav-link link-body-emphasis px-2">Sign Up</a>
+                </li>
+                
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
     <div class="container mt-5">
         <h2>Reservation Lookup</h2>
         
@@ -62,5 +136,38 @@
             console.log('HTMX request completed:', evt.detail);
         });
     </script>
+    <footer>
+        <div class="row">
+          <div class="col-4 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Cool stuff</a></li>
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Random feature</a></li>
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team feature</a></li>
+              
+            </ul>
+          </div>
+          <div class="col-4 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'room_rates' %}">Rates</a></li>
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Resource name</a></li>
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Another resource</a></li>
+              
+            </ul>
+          </div>
+          <div class="col-4 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team</a></li>
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
+              <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
+           
+            </ul>
+          </div>
+            
+      
+        </div>
+      </footer>
 </body>
 </html>
