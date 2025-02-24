@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LogoutView
 from . import views
+from .views import CustomPasswordResetView
 
 
 urlpatterns = [
@@ -31,6 +32,9 @@ urlpatterns = [
    path('room_rates/', views.room_rates, name='room_rates'),
     path('reservation-lookup/', views.reservation_lookup, name='reservation_lookup'),
     path('reservation_lookup_results/', views.reservation_lookup_results, name='reservation_lookup_results'),
+     path('password_reset/', views.password_reset, name='password_reset'),
+    path('password_reset_done/', views.password_reset_done, name='password_reset_done'),
+      path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
     
    
        

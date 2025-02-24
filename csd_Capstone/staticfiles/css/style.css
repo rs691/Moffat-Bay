@@ -26,19 +26,19 @@ body {
   }
 
 footer {
-position: fixed;
-bottom: 0;
+
+
 background-color: black;
-width: 100%;
+
 font-size: 20px;
 color: white;
-padding: 20px;
+padding: 10px;
+bottom: 0;
+width: 100%;
+
 text-align: center;
 }
 
-p{
-  text-align: center;
-}
 
 
 

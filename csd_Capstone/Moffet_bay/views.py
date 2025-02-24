@@ -12,6 +12,12 @@ from django.http import JsonResponse
 import json
 
 from django.http import HttpResponse
+from django.contrib.auth.views import PasswordResetView
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
+
+
+
 
 def attractions(request):
     attractions = [
@@ -134,9 +140,7 @@ def reservation(request):
 
 
 
-def attractions_view(request):
-    attractions = Attraction.objects.all()
-    return render(request, 'attractions.html', {'attractions': attractions})
+
 
 
 
@@ -259,32 +263,22 @@ def contact(request):
     return render(request, 'contact.html', {'form': form})
 
 
-# def reservation_lookup(request):
-#     form = ReservationLookupForm(request.POST or None)
-#     results = None
-#     if request.method == 'POST' and form.is_valid():
-#         reservation_id = form.cleaned_data.get('reservation_id')
-#         last_name = form.cleaned_data.get('last_name')
-#         email = form.cleaned_data.get('email')
-        
-#         query = Q()
-#         if reservation_id:
-#             query &= Q(reservation_id__icontains=reservation_id)
-#         if last_name:
-#             query &= Q(last_name__icontains=last_name)
-#         if email:
-#             query &= Q(email__icontains=email)
-            
-#         results = Reservation.objects.filter(query)
-    
-#     # Check for the HTMX header
-#     is_htmx = request.headers.get('HX-Request', False) or request.META.get('HTTP_HX_REQUEST', False)
-    
-#     if is_htmx:
-#         return render(request, 'reservation_lookup_results.html', {'results': results})
-    
-#     return render(request, 'reservation_lookup.html', {'form': form, 'results': results})
+def password_reset(request):
+    return render(request, 'password_reset.html')
 
+def password_reset_done(request):
+    return render(request, success_message='A password reset link has been sent to your email.')
+
+
+
+class CustomPasswordResetView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'password_reset.html'
+    email_template_name = 'password_reset_email.html'
+    subject_template_name = 'password_reset_subject.txt'
+    success_url = reverse_lazy('password_reset_done')
+    success_message = "A password reset link has been sent to your email."
+ 
+    
 
 
 

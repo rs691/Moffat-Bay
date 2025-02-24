@@ -81,9 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # Use the MySQL backend
         'NAME': 'moffat_bay',                 # Name of your database
         'USER': 'root',                       # MySQL username
-        'PASSWORD': 'Jayden#811',             # MySQL password (leave blank if none)
+        'PASSWORD': 'Hankbob2017!',             # MySQL password (leave blank if none)
         'HOST': '127.0.0.1',                  # Database server (localhost for local dev)
-        'PORT': '3306',                       # Default MySQL port
+                         
     }
 }
     
@@ -125,7 +125,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"  # Change this to be simpler
 STATICFILES_DIRS = [
-    BASE_DIR / "Moffet_bay/static",  # Make sure this matches your actual static folder structure
+    BASE_DIR / "static",  # Make sure this matches your actual static folder structure
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"  # Add this line
 
