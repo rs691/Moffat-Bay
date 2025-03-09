@@ -6,6 +6,8 @@ from django.core.validators import MaxValueValidator
 from .models import CustomUser, Reservation, Testimonial, ContactMessage # Use CustomUser instead of default User
 from django import forms
 
+from .models import RestaurantReservation
+
 
 
 
@@ -194,3 +196,14 @@ class ReservationLookupForm(forms.Form):
             'placeholder': 'Enter Email'
         })
     )
+    
+
+
+class RestaurantReservationForm(forms.ModelForm):
+    class Meta:
+        model = RestaurantReservation
+        fields = ['name', 'email', 'phone', 'date', 'time', 'guests', 'special_requests']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+        }

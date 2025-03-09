@@ -16,6 +16,10 @@ from django.contrib.auth.views import PasswordResetView
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 
+from .models import RestaurantReservation
+from .forms import RestaurantReservationForm
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -320,3 +324,19 @@ def reservation_lookup(request):
 
 def reservation_lookup_results(request):
     return render(request, 'reservation_lookup_results.html')
+
+
+
+@login_required
+def restaurant_reservation(request):
+    if request.method == "POST":
+        form = RestaurantReservationForm(request.POST)
+        if form.is_valid():
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.save()
+            return redirect('reservation_success')  # Define a success page
+    else:
+        form = RestaurantReservationForm()
+    
+    return render(request, 'restaurant_reservation.html', {'form': form})

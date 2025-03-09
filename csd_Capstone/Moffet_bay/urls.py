@@ -5,10 +5,11 @@ from . import views
 from .views import CustomPasswordResetView
 
 
+
 urlpatterns = [
       path('sign_in/', views.sign_in, name='sign_in'),
       path('sign_up/', views.sign_up, name='sign_up'),
-      # path('account/', sign_in_up, name='sign_in_up'),
+    
       path('', views.index , name='index'),
       path('success/', views.success, name='success'),
       path('reservation/', views.reservation, name='reservation'),
@@ -19,7 +20,7 @@ urlpatterns = [
 
       path('reservation_summary/', views.reservation_summary, name='reservation_summary'),
      
-    #    path('sign_in/', auth_views.LoginView.as_view(), name='sign_in'),
+  
       
       path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
      
@@ -35,6 +36,7 @@ urlpatterns = [
      path('password_reset/', views.password_reset, name='password_reset'),
     path('password_reset_done/', views.password_reset_done, name='password_reset_done'),
       path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
+       path('restaurant-reservation/', views.restaurant_reservation, name='restaurant_reservation'),
     
    
        
