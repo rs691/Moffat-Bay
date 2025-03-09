@@ -10,6 +10,7 @@
                 <ul class="nav flex-column">
                     <li class="nav-item"><a class="nav-link active" href="#introduction">Introduction</a></li>
                     <li class="nav-item"><a class="nav-link" href="#getting-started">Getting Started</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#setup-deployment">Setup and Deployment</a></li>
                     <li class="nav-item"><a class="nav-link" href="#registration">Registration</a></li>
                     <li class="nav-item"><a class="nav-link" href="#login">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="#account-management">Account Management</a></li>
@@ -22,13 +23,19 @@
             </div>
         </nav>
 
-      
+   
+
+
+
 
         <!-- Main Content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Moffat Bay Resort Documentation</h1>
             </div>
+
+
+            
 
             <!-- Introduction Section -->
             <section id="introduction" class="mb-5">
@@ -41,6 +48,112 @@
                 <h2>Getting Started</h2>
                 <p>Explore our resort offerings on the <a href="{% url 'index' %}">home page</a>. Learn more about our services on the <a href="{% url 'about' %}">about page</a>.</p>
             </section>
+
+
+               <!--Setup and deployment-->
+<section id="setup-deployment" class="mb-5">
+    <div class="container">
+        <h1 class="mb-4">Setup and Deployment Guide</h1>
+
+        <section>
+            <h2>Overview</h2>
+            <p>The Moffat Bay Resort application is a web-based platform built with Django, designed to manage reservations, user accounts, and provide information about the resort.</p>
+        </section>
+
+        <section>
+            <h2>Technologies Used</h2>
+            <ul>
+                <li>Django 5.1.2</li>
+                <li>MySQL</li>
+                <li>HTMX</li>
+                <li>Bootstrap 5</li>
+                <li>Python 3.9+</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Prerequisites</h2>
+            <ul>
+                <li>Python 3.9 or higher</li>
+                <li>MySQL Server</li>
+                <li>Git</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Quick Start Guide</h2>
+            <ol>
+                <li>
+                    <strong>Clone the repository:</strong>
+                    <pre><code>git clone https://github.com/yourusername/moffat-bay.git
+cd moffat-bay</code></pre>
+                </li>
+                <li>
+                    <strong>Create and activate a virtual environment:</strong>
+                    <pre><code># Windows
+python -m venv venv
+.\venv\Scripts\activate
+
+# Unix/Linux
+python3 -m venv venv
+source venv/bin/activate</code></pre>
+                </li>
+                <li>
+                    <strong>Install required packages:</strong>
+                    <pre><code>pip install -r requirements.txt</code></pre>
+                </li>
+                <li>
+                    <strong>Configure your database:</strong>
+                    <ul>
+                        <li>Create a MySQL database.</li>
+                        <li>Update the <code>.env</code> file with your database credentials.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Run migrations:</strong>
+                    <pre><code>python manage.py makemigrations
+python manage.py migrate</code></pre>
+                </li>
+                <li>
+                    <strong>Create a superuser:</strong>
+                    <pre><code>python manage.py createsuperuser</code></pre>
+                </li>
+                <li>
+                    <strong>Start the development server:</strong>
+                    <pre><code>python manage.py runserver</code></pre>
+                    <p>Visit <a href="http://localhost:8000" target="_blank" rel="noopener">http://localhost:8000</a> in your browser.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Features</h2>
+            <ul>
+                <li>User Registration and Authentication</li>
+                <li>Reservation Management
+                    <ul>
+                        <li>Create new reservations</li>
+                        <li>View existing reservations</li>
+                        <li>Live search functionality</li>
+                    </ul>
+                </li>
+                <li>User Profile Management</li>
+                <li>Contact Form</li>
+                <li>Testimonials</li>
+                <li>Responsive Design</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Project Structure</h2>
+            <pre><code>moffat-bay/
+├── csd_Capstone/          # Project settings
+├── Moffet_bay/            # Main application
+├── static/                # Static files (CSS, JS, images)
+├── templates/             # HTML templates
+├── requirements.txt       # Project dependencies
+└── manage.py              # Django management script</code></pre>
+        </section>
 
             <!-- Registration -->
             <section id="registration" class="mb-5">
@@ -140,7 +253,7 @@
                     <h4>Contributed By</h4>
                     <p >
                         Robert Stewart, Juan Partida-Jacinto, Brittni Ray, Aaron Crose II, and Prof Sue Sampson
-                    </>
+                    </s>
                 </section>
 
                 <section id="presentation" class="mt-5">
