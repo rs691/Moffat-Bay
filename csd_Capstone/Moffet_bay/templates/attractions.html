@@ -2,22 +2,46 @@
 
 {% block content %}
 
+<!-- Main container for the attractions section -->
 <div class="container mt-5">
-    <h1 class="text-center">Moffat Bay Attractions</h1>
+    <h1 class="text-center">Moffat Bay Attractions</h1> <!-- Title of the page centered at the top -->
+
+    <!-- Row to hold the attraction cards -->
     <div class="row">
+        <!-- Loop through each attraction in the 'attractions' list -->
         {% for attraction in attractions %}
-        <div class="col-md-4">
-            <div class="card mb-4">
+
+        <!-- Each attraction is placed in a column that takes up 4 out of 12 grid spaces (Bootstrap) -->
+        <div class="col-md-4 d-flex align-items-stretch">
+
+            <!-- Card component to display each attraction -->
+            <div class="card mb-4 h-100">
+
+                <!-- Image for the attraction with styling applied from the CSS -->
                 <img src="{{ attraction.image_url }}" class="card-img-top attraction-img" alt="{{ attraction.title }}">
+
+                <!-- Card body to hold the details of the attraction -->
                 <div class="card-body">
-                    <h5 class="card-title">{{ attraction.title }}</h5>
-                    <p class="card-text">{{ attraction.description }}</p>
-                    <p class="card-text"><strong>Price:</strong> {{ attraction.price }}</p>
-                    <p class="card-text"><strong>Duration:</strong> {{ attraction.duration }}</p>
+                    <h5 class="card-title">{{ attraction.title }}</h5> <!-- Title of the attraction -->
+                    <p class="card-text">{{ attraction.description }}</p> <!-- Description of the attraction -->
+                    <p class="card-text"><strong>Price:</strong> {{ attraction.price }}</p> <!-- Price of the attraction -->
+                    <p class="card-text"><strong>Duration:</strong> {{ attraction.duration }}</p> <!-- Duration of the attraction -->
                 </div>
             </div>
         </div>
-        {% endfor %}
+        {% endfor %} <!-- End of the loop -->
     </div>
 </div>
+
+{% endblock %}
+
+{% block styles %}
+<style>
+  .attraction-img {
+    width: 100%;
+    height: 275px; /* Set your desired height */
+    object-fit: cover; 
+  }
+
+</style>
 {% endblock %}

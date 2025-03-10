@@ -81,8 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # Use the MySQL backend
         'NAME': 'moffat_bay_holy_db',                 # Name of your database
         'USER': 'root',                       # MySQL username
-        # Must add own password to connect to database
-        'PASSWORD': '',             # MySQL password (leave blank if none)
+        'PASSWORD': '!',             # MySQL password (leave blank if none)
         'HOST': '127.0.0.1',                  # Database server (localhost for local dev)
                          
     }
