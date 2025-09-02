@@ -1,18 +1,11 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
-from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.validators import MaxValueValidator
-from .models import CustomUser, Reservation, Testimonial, ContactMessage # Use CustomUser instead of default User
-from django import forms
 
-from .models import RestaurantReservation
-
-
-
-
-
-
+from .models import (ContactMessage,  # Use CustomUser instead of default User
+                     CustomUser, Reservation, RestaurantReservation,
+                     Testimonial)
 
 User = get_user_model()
 

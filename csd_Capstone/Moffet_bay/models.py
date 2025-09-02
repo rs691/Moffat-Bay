@@ -1,11 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.conf import settings
-
-from django.utils.text import slugify
 import markdown
+from django.conf import settings
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin, User)
+from django.db import models
+from django.utils.text import slugify
 
-from django.contrib.auth.models import User
 
 class Attractions(models.Model):
     name = models.CharField(max_length=100)
